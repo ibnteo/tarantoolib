@@ -1,3 +1,11 @@
+--[[
+	Example:
+	box.schema.space.create('my')
+	box.schema.sequence.create('my')
+	box.space.my:create_index('pk', {sequence='my'}) or box.space.my.index.pk:alter({sequence='my'})
+	box.space.my:format({ {'id', 'unsigned'}, {'title, 'string'}, {'date', 'integer'} })
+]]--
+
 -- box.space.my:f_update({id}, {title='Abc', date=os.time()})
 function box.schema.space_mt.f_update(space, pk, data)
 	local f = {}
@@ -24,8 +32,6 @@ function box.schema.space_mt.f_upsert(space, pk, data)
 	return space:upsert(pk, upsert)
 end
 
--- box.schema.sequence.create('my')
--- box.space.my:create_index('pk', {sequence='my'}) or box.space.my.index.pk:alter({sequence='my'})
 -- box.space.my:f_insert({title='Abc', date=os.time()})
 function box.schema.space_mt.f_insert(space, data)
 	local f = {}
